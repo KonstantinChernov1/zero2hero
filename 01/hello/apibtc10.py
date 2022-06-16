@@ -1,5 +1,6 @@
 import json
 import requests
+import pytest
 #import test_modele
 
 # Получаем днные из внешнего API в формате JSON
@@ -16,6 +17,26 @@ def btc_calculate(rate:float, btc_cnt:int)->float :
     result = rate * btc_cnt
     return result
 
+def third_func():
+    try:
+        another_func()
+    except:
+        print("Отправляем на клиент, что у нас тех работы")
+
+def another_func():
+    number = devision(19,0)
+    result = number * 15
+    print(result)
+
+# Прстой тест
+def devision(a:int, b:float)->float:
+    try:
+        return a/b
+    except ZeroDivisionError as error:
+        print(error)
+        raise ValueError("Ты нам прислал 0, мы так не договаривались")
+
+
 # Функция, принимае значнеие валюты 
 # Возвращает стоимость биткойна в этой валюте
 def get_btc_rate(api_response:dict, carrency:str)->float:
@@ -24,11 +45,26 @@ def get_btc_rate(api_response:dict, carrency:str)->float:
     return btc_rate_float
 
 def get_btc_count(total_money:int, btc_price:float)->float:
+    if btc_price == 0:
+        raise ValueError("Не делится")
+    if not isinstance(btc_price, float):
+        raise ValueError("btc_price не является типом float")
+    if not isinstance(total_money, int):
+        raise ValueError("total_money не является типом int")
+    
     return total_money/btc_price
 
+def test_get_btc_count():
+    with pytest.raises(ValueError):
+        get_btc_count(10, 0)
+    with pytest.raises(ValueError):
+        get_btc_count(10, "0")
+    with pytest.raises(ValueError):
+        get_btc_count("10", 10)
 
 if __name__ == "__main__":
     # Данные для запуска программы 
+    third_func()
     url = "https://api.coindesk.com/v1/bpi/currentprice.json"
     my_fav_bpi = ["USD", "EUR"]
     btc_cnt = 10
@@ -52,9 +88,9 @@ if __name__ == "__main__":
 
 
 
-
-
-
+def test_devision_by_zero():
+    with pytest.raises(ValueError):
+        devision(100,0.0)
 
 
 
