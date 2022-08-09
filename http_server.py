@@ -39,7 +39,7 @@ class HttpGetHandler(BaseHTTPRequestHandler):
         action, param = dispath(self.path)
         # print(view.rout_dict)
         
-        # Если ключа не будет вернёт None
+        # Если ключа не будет вернёт Nonefffff
         # view.rout_dict.get(action)
 
         # Если ключа не будет, выпадет с ошибкой ( исколючение )

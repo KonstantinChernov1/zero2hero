@@ -32,7 +32,7 @@ def auth(login:str, password:str)->str:
 def get_post(post_id):
     return f"Это пост с номером {post_id}"
 
-# /ru/reg/login,password
+# /ru/reg/login,passworddd
 @router("reg")
 def reg(login:str, password:str)->str:
     if len(password) < 4:
